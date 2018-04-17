@@ -45,6 +45,7 @@ defmodule EWallet.Umbrella.Mixfile do
   defp deps do
     [
       {:credo, github: "rrrene/credo", only: [:dev, :test], runtime: false},
+      {:distillery, "~> 1.5", runtime: false},
       {:ex_doc, "~> 0.16", only: :dev, runtime: false},
       {:excoveralls, "~> 0.8", only: :test, runtime: false}
     ]
