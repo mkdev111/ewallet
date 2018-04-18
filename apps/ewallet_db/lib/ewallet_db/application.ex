@@ -8,6 +8,8 @@ defmodule EWalletDB.Application do
 
   def start(_type, _args) do
     import Supervisor.Spec
+    DeferredConfig.populate(:ewallet_db)
+    EWalletDB.Config.configure_file_storage()
 
     # List all child processes to be supervised
     children = [

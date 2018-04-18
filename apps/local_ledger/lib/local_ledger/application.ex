@@ -5,7 +5,7 @@ defmodule LocalLedger.Application do
 
   def start(_type, _args) do
     import Supervisor.Spec
-    DeferredConfig.populate(:local_ledger_db)
+    DeferredConfig.populate(:local_ledger)
 
     children =
       case Application.get_env(:local_ledger, LocalLedger.Scheduler) do
