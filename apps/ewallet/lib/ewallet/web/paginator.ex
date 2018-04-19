@@ -63,16 +63,18 @@ defmodule EWallet.Web.Paginator do
     per_page = Map.get(attrs, "per_page", @default_per_page)
     max_per_page =
       case Application.get_env(:ewallet, :max_per_page, @default_max_per_page) do
-        {:system, env_var} -> System.get_env(env_var)
+        {:system, env_var} ->
+          case System.get_env(env_var) do
+            "" -> @default_max_per_page
+            nil -> @default_max_per_page
+            value when is_binary(value) -> String.to_integer(value)
+            value -> value
+          end
         value -> value
       end
 
     case per_page do
-      n when n > max_per_page ->
-        case max_per_page do
-          v when is_integer(v) -> v
-          v when is_binary(v) -> String.to_integer(v)
-        end
+      n when n > max_per_page -> max_per_page
       _ -> per_page
     end
   end
