@@ -1,4 +1,8 @@
 defmodule EWalletDB.Config do
+  @moduledoc """
+  Provides a configuration function that are called during application startup.
+  """
+
   def configure_file_storage do
     storage_adapter = System.get_env("FILE_STORAGE_ADAPTER") || "local"
     configure_file_storage(storage_adapter)

@@ -4,11 +4,12 @@ defmodule AdminAPI.Application do
   """
   use Application
   alias AdminAPI.Endpoint
+  alias AdminAPI.Config
 
   def start(_type, _args) do
     import Supervisor.Spec
     DeferredConfig.populate(:admin_api)
-    AdminAPI.Config.configure_cors_plug()
+    Config.configure_cors_plug()
 
     # Define workers and child supervisors to be supervised
     children = [

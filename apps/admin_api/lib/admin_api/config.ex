@@ -1,4 +1,7 @@
 defmodule AdminAPI.Config do
+  @moduledoc """
+  Provides a configuration function that are called during application startup.
+  """
 
   @headers [
     "Authorization",
