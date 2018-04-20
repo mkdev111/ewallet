@@ -3,8 +3,8 @@ Path.join(["rel", "plugins", "*.exs"])
 |> Enum.map(&Code.eval_file(&1))
 
 use Mix.Releases.Config,
-    default_release: :ewallet,
-    default_environment: Mix.env
+  default_release: :ewallet,
+  default_environment: Mix.env
 
 environment :dev do
   set dev_mode: true
@@ -31,5 +31,9 @@ release :ewallet do
     local_ledger: :permanent,
     local_ledger_db: :permanent,
     url_dispatcher: :permanent
+  ]
+
+  set commands: [
+    "initdb": "rel/commands/initdb.sh"
   ]
 end
