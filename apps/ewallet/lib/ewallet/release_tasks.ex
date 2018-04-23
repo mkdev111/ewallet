@@ -1,21 +1,25 @@
-defmodule LocalLedgerDB.ReleaseTasks do
+defmodule EWallet.ReleaseTasks do
   @moduledoc """
   Provides a task for use within release.
   """
+  alias Ecto.Migrator
 
-  @app_name :local_ledger_db
   @start_apps [:crypto, :ssl, :postgrex, :ecto]
+  @initdb_apps [:ewallet_db, :local_ledger_db]
 
   def initdb do
-    :ok = Application.load(@app_name)
-    repos = Application.get_env(@app_name, :ecto_repos, [])
-
     Enum.each(@start_apps, &Application.ensure_all_started/1)
-    Enum.each(repos, &(&1.start_link(pool_size: 1)))
-    Enum.each(repos, &run_create_for/1)
-    Enum.each(repos, &run_migrations_for/1)
-
+    Enum.each(@initdb_apps, &initdb/1)
     :init.stop()
+  end
+
+  defp initdb(app_name) do
+    :ok = Application.load(app_name)
+    repos = Application.get_env(app_name, :ecto_repos, [])
+
+    Enum.each(repos, &run_create_for/1)
+    Enum.each(repos, &(&1.start_link(pool_size: 1)))
+    Enum.each(repos, &run_migrations_for/1)
   end
 
   defp run_create_for(repo) do
@@ -30,7 +34,7 @@ defmodule LocalLedgerDB.ReleaseTasks do
   defp run_migrations_for(repo) do
     migrations_path = priv_path_for(repo, "migrations")
     IO.puts "Running migration for #{inspect repo}..."
-    Ecto.Migrator.run(repo, migrations_path, :up, all: true)
+    Migrator.run(repo, migrations_path, :up, all: true)
   end
 
   defp priv_dir(app), do: "#{:code.priv_dir(app)}"

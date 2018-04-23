@@ -60,7 +60,7 @@ defmodule Mix.Tasks.Omg.Server do
   defp configure_env([_ | rest]), do: configure_env(rest)
   defp configure_env([]), do: put_env(:url_dispatcher, :serve_endpoints, true)
 
-  defp run_args() do
+  defp run_args do
     if iex_running?(), do: [], else: ["--no-halt"]
   end
 
