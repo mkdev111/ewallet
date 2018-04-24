@@ -35,4 +35,8 @@ defmodule AdminAPI.Config do
     |> String.trim()
     |> String.split(~r{\s*,\s*})
   end
+
+  def read_client_auth_config do
+    System.get_env("ENABLE_ADMIN_CLIENT_AUTH") == "true"
+  end
 end

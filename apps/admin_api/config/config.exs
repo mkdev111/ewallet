@@ -10,7 +10,7 @@ config :admin_api,
   namespace: AdminAPI,
   ecto_repos: [],
   sender_email: {:system, "SENDER_EMAIL", "admin@localhost"},
-  enable_client_auth: System.get_env("ENABLE_ADMIN_CLIENT_AUTH") == "true"
+  enable_client_auth: {:apply, {AdminAPI.Config, :read_client_auth_config, []}}
 
 # Configs for the endpoint
 config :admin_api,
