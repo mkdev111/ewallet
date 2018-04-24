@@ -338,6 +338,14 @@ In this section, we will be sharing some of the next features the OmiseGO team w
 - Refactor and unify the test helpers for minting.
 - ...
 
+# Support
+
+- Got an idea to improve the SDKs? Talk to us in our [Rocket Chat](https://chat.omisego.network/)'s `#eWallet SDK` channel
+
+- Found a bug? File an issue with [GitHub Issues](https://github.com/omisego/ewallet/issues).
+
+- Stuck at integrating or building on top of the SDKs? Search or create a question on StackOverflow using the tag [omisego](https://stackoverflow.com/questions/tagged/omisego).
+
 # F.A.Q
 
 ##### Can I use the eWallet right now?
